@@ -6,13 +6,12 @@ import Layout from './layouts/Layout'
 export default function AppRouter() {
     return (
         <BrowserRouter>
-            <Route element={<Layout/>}>
                 <Routes>
-                        <Route path='/' element ={<IndexPage/>}/>
-                        <Route path='/favoritos' element ={<FavoritesPage/>}/>
+                    <Route element={<Layout/>}>
+                            <Route path='/' element ={<IndexPage/>} index/>
+                            <Route path='/favoritos' element ={<FavoritesPage/>}/>
+                    </Route>
                 </Routes>
-            </Route>
-                
         </BrowserRouter>
     )
 }
