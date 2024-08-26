@@ -3,6 +3,7 @@ import { NavLink, useLocation} from "react-router-dom"
 import { useAppStore } from "../stores/useAppStore"
 
 
+
 export default function Header() {
   const [searchFilters, setSearchFilters] = useState({
     ingredient: '',
@@ -15,13 +16,14 @@ export default function Header() {
   const fetchCategories = useAppStore((state) => state.fetchCategories)
   const categories = useAppStore((state) => state.categories)
   const searchRecipies = useAppStore((state) => state.searchRecipes)
+  const showNotification = useAppStore((state) => state.showNotification)
   
 
   useEffect(() => {
     fetchCategories()
   }, [])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement >) => {
     setSearchFilters({
       ...searchFilters, 
       [e.target.name]: e.target.value
@@ -31,10 +33,14 @@ export default function Header() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    //TODO: Validando
+     //TODO: Validando
     if(Object.values(searchFilters).includes('')) {
+        showNotification({
+          text:'Todos los campos son obligatorios', 
+          error:true
+    })
       return
-    }
+    } 
 
     //Consultar Recetas
     searchRecipies(searchFilters)

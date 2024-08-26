@@ -1,13 +1,12 @@
 
 import { Fragment } from 'react'
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
-import { XMarkIcon } from '@heroicons/react/20/solid'
 import { Transition } from '@headlessui/react'
 import { useAppStore } from '../stores/useAppStore'
 
 export default function Notification() {
 
     const notification =useAppStore ((state) => state.notification )
+    const hideNotification =useAppStore ((state) => state.hideNotification)
 
     return (
         <div
@@ -30,23 +29,23 @@ export default function Notification() {
                 <div className="flex items-start">
                     <div className="flex-shrink-0">
                         {notification.error ? (
-                            <p className='h-6 w-6 text-red-500' aria-hidden='true'>X</p>
+                            <p className='text-3xl font-extrabold text-red-500' aria-hidden='true'>X</p>
                         ) :(
-                            <p className='h-6 w-6 text-green-500' aria-hidden='true'></p>
+                            <p className='text-3xl font-extrabold text-green-500' aria-hidden='true'>✓</p>
                         )}
                     </div>
                     <div className="ml-3 w-0 flex-1 pt-0.5">
-                    <p className="text-sm font-medium text-gray-900">Notificación</p>
-                    <p className="mt-1 text-sm text-gray-500">{notification.text}</p>
+                    <p className="text-base font-semibold">Notificación</p>
+                    <p className="mt-1 text-base text-gray-800">{notification.text}</p>
                     </div>
                     <div className="ml-4 flex flex-shrink-0">
                     <button
                         type="button"
                         className="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        onClick={() => { }}
+                        onClick={hideNotification}
                     >
                         <span className="sr-only">Cerrar</span>
-                        <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                        <p className="h-5 w-5 text-gray-600" aria-hidden="true">X</p>
                     </button>
                     </div>
                 </div>
